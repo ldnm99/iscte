@@ -3,6 +3,7 @@ package special;
 
 import java.util.List;
 
+import special.Algorithms.SimpleAlg;
 import special.Loaders.LectureLoader;
 import special.Loaders.RoomLoader;
 import special.Models.Lecture;
@@ -14,8 +15,12 @@ class Worker{
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
         List<Lecture> lectures = LectureLoader.readLectureFile(filename2);
-        System.out.println(rooms);
-        System.out.println(lectures);
+        //System.out.println(rooms);
+        System.out.println(lectures.get(0).getRoom());
+        SimpleAlg sa = new SimpleAlg();
+        sa.compute(lectures, rooms);
+        // Should have the rooms allocated to each lecture instance
+        System.out.println(lectures.get(0).getRoom());
     }
     
 

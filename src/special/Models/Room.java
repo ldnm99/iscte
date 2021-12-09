@@ -46,17 +46,26 @@ public class Room {
 		return characteristics;
 	}
 
-
 	//Check if input of variables is the correct one
-	public final boolean hasCharacteristic(final String characteristic) throws IllegalArgumentException {
+	public final boolean has_Characteristic(final String characteristics) throws IllegalArgumentException{
+        
+		boolean result = false;
+
+		if (this.has_Valid_Characteristic(characteristics)){
+			result = true;
+		}
+        
+        return result;
+    }
+
+	// Validates if the characteristic is valid
+	public final boolean has_Valid_Characteristic(final String characteristic) throws IllegalArgumentException {
         for (int i = 0; i < Room.CHARACTERISTICS_LIST.length; i++) {
             if (Room.CHARACTERISTICS_LIST[i].equals(characteristic)) {
                 return this.characteristics.get(i);
             }
         }
         return false;
-        //throw new IllegalArgumentException();
     }
-
 
 }
