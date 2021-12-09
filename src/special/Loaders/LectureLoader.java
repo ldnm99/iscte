@@ -78,7 +78,6 @@ public class LectureLoader {
         if(Capacity_OverflowS.equals("FALSO")){
            Capacity_Overflow = false;
         }
-        System.out.println(dateS);
         final Times start = Times.stringToClassTime(startS);
         final Times end = Times.stringToClassTime(endS);
         final Date date = new Date(dateS);
