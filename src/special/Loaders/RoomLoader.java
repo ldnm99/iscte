@@ -1,9 +1,11 @@
 package special.Loaders;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.Scanner;
+
+import com.opencsv.CSVReader;
 
 import special.Models.Room;
 
@@ -13,33 +15,23 @@ public class RoomLoader {
         
         final LinkedList<Room> rooms = new LinkedList<>();
         try {
-            FileInputStream file = new FileInputStream(filepath);
-            Scanner scanner = new Scanner(file, "UTF-8");
 
-            /*
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
-            final CSVReader csvReader = new CSVReader(reader)
+            final CSVReader csvReader = new CSVReader(reader);
+            
 
+            //skips headers
             csvReader.readNext();
+
             String[] tokens;
+
             while ((tokens = csvReader.readNext()) != null) {
                 rooms.add(creationRooms(tokens));
             }
-            */
 
-            //skips the headers
-            scanner.nextLine();
+            csvReader.close();
             
-            String[] tokens;
-
-            while (scanner.hasNext() ){ 
-
-                String data = scanner.nextLine(); 
-                tokens = data.split(";");
-                rooms.add(creationRooms(tokens));
-            }   
-            scanner.close();  //closes the scanner
-        } catch (IOException   e) {
+        } catch (Exception   e) {
             e.printStackTrace();
         }
         return rooms;
@@ -55,7 +47,7 @@ public class RoomLoader {
 				characteristics.add(false);
 			}
 		}
-        Room r = new Room(tokens[0], tokens[1], Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]), characteristics);
+        Room r = new Room(tokens[0], tokens[1], Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]), Integer.parseInt(tokens[4]), characteristics);
         return r;
     } 
 }

@@ -15,15 +15,19 @@ public class Room {
 	private final String name;
 	private final int normal_capacity;
 	private final int exam_capacity;
+	private final int n_characteristics;
 	private final LinkedList<Boolean> characteristics;
 
-	public Room(String building, String name, int normal_capacity, int exam_capacity, LinkedList<Boolean> characteristics) { //List<String> characteristics) {
+	public Room(String building, String name, int normal_capacity, int exam_capacity, int n_characteristics, LinkedList<Boolean> characteristics) { //List<String> characteristics) {
 		this.building = building;
 		this.name = name;
 		this.normal_capacity = normal_capacity;
 		this.exam_capacity = exam_capacity;
+		this.n_characteristics = n_characteristics;
 		this.characteristics = characteristics;
 	}
+
+	
 
 	public String getBuilding() {
 		return building;
@@ -40,6 +44,10 @@ public class Room {
 
 	public int getExam_capacity() {
 		return exam_capacity;
+	}
+	
+	public int getN_characteristics() {
+		return n_characteristics;
 	}
 
 	public LinkedList<Boolean> getCharacteristics() {

@@ -1,10 +1,12 @@
 package special.Loaders;
 
-import java.io.FileInputStream;
-
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Scanner;
+
+import com.opencsv.CSVReader;
 
 import special.Models.Date;
 import special.Models.Lecture;
@@ -15,30 +17,21 @@ public class LectureLoader {
     public static final LinkedList<Lecture> readLectureFile(final String filepath){
         LinkedList<Lecture> lectures = new LinkedList<>();
         try {
-            FileInputStream file = new FileInputStream(filepath);
-            Scanner scanner = new Scanner(file,"UTF-8");
-            
-            /*
+           
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
-            final CSVReader csvReader = new CSVReader(reader)
-
+            final CSVReader csvReader = new CSVReader(reader);
+            
+            //skips headers
             csvReader.readNext();
+
             String[] tokens;
+            
             while ((tokens = csvReader.readNext()) != null) {
+                //System.out.println(tokens[4]);
                 lectures.add(creationlectures(tokens));
             }
-            */
-            
-            //skips the headers
-            scanner.nextLine();
-            String[] tokens;
 
-            while (scanner.hasNext() ){ 
-                String data = scanner.nextLine(); 
-                tokens = data.split(";");
-                lectures.add(creationlectures(tokens));
-            }   
-            scanner.close();  //closes the scanner
+            csvReader.close();
         } catch (Exception  e) {
             e.printStackTrace();
         }
@@ -67,7 +60,7 @@ public class LectureLoader {
 
         // Converting to their correct form
         final LinkedList<String> course = new LinkedList<>(Arrays.asList(courseS.split(", ")));
-        final int n_students = Integer.parseInt(n_studentsS);
+        final int n_students = n_studentsS.isEmpty() ? -1 : Integer.parseInt(n_studentsS);
 
         boolean Free_Spots = true;
         if(Free_SpotsS.equals("FALSO")){
