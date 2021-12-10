@@ -34,6 +34,7 @@ public class SimpleAlg {
                         if(checkClassRoomAvailability(r, day,currHour,classRoomAvailabilityMap)){
                             classRoomAvailabilityMap.get(day).get(currHour).add(r);
                             l.setRoom(r);
+                            System.out.println(l.getName() + " Has the follwing room: " + r.getName());
                             break;
                         }
                     }

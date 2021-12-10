@@ -23,8 +23,10 @@ class Worker{
 
         SimpleAlg sa = new SimpleAlg();
         sa.compute(lectures, rooms);
+        
         // Should have the rooms allocated to each lecture instance
-        System.out.println(lectures.get(100).getRoom().getName());
+        
+        
     }
     
 
