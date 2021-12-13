@@ -1,6 +1,7 @@
 package special.Models;
 
 import java.util.LinkedList;
+import org.joda.time.DateTime;
 
 public class Lecture {
 
@@ -12,22 +13,22 @@ public class Lecture {
 	private final boolean Free_Spots;
     private final boolean Capacity_Overflow;
 	private final String week_day;
-	private final Times start;
-	private final Times end;
-	private final Date date;
+	private final DateTime start_date;
+	private final DateTime end_date;
 	private final String required_room_characteristics;
-	private final int capacity;
-	private final String real_characteristics;
-    private Room room;
+	private Room room;
+	private int capacity;
+	private LinkedList<String> real_characteristics;
+
 
 	//Headers of the csv file because of json scrambling
-	public static final String[] HEADERS = {"Curso","Unidade de execução","Turno","Turma","Inscritos no turno (no 1º semestre é baseado em estimativas)",
+	public static final String[] HEADERS = {"?Curso","Unidade de execução","Turno","Turma","Inscritos no turno (no 1º semestre é baseado em estimativas)",
 	"Turnos com capacidade superior à capacidade das características das salas","Turno com inscrições superiores à capacidade das salas","Dia da Semana","Início","Fim","Dia",
-	"Características da sala pedida para a aula","Sala da aula,Lotação","Características reais da sala"
+	"Características da sala pedida para a aula","Sala da aula" , "Lotação","Características reais da sala"
 	};
 
 	public Lecture(LinkedList<String> course, String name, String shift, String class_name, int n_students, boolean Free_Spots, boolean Capacity_Overflow,
-	String week_day, Times start, Times end, Date date2, String required_room_characteristics, int capacity, String real_characteristics) {
+	String week_day, DateTime start_date, DateTime end_date, String required_room_characteristics) {
 		this.course = course;
 		this.name = name;
 		this.shift = shift;
@@ -36,12 +37,9 @@ public class Lecture {
 		this.Free_Spots = Free_Spots;
 		this.Capacity_Overflow = Capacity_Overflow;
 		this.week_day = week_day;
-		this.start = start;
-		this.end = end;
-		this.date = date2;
+		this.start_date = start_date;
+		this.end_date = end_date;
 		this.required_room_characteristics = required_room_characteristics;
-		this.capacity = capacity;
-		this.real_characteristics = real_characteristics;
 	}
 
 	public LinkedList<String> getCourse() {
@@ -76,16 +74,12 @@ public class Lecture {
 		return week_day;
 	}
 
-	public Times getStart() {
-		return start;
+	public DateTime getStart_date() {
+		return start_date;
 	}
 
-	public Times getEnd() {
-		return end;
-	}
-
-	public Date getDate() {
-		return date;
+	public DateTime getEnd_date() {
+		return end_date;
 	}
 
 	public String getRequired_room_characteristics() {
@@ -96,7 +90,7 @@ public class Lecture {
 		return capacity;
 	}
 
-	public String getReal_characteristics() {
+	public LinkedList<String> getReal_characteristics() {
 		return real_characteristics;
 	}
 
@@ -104,8 +98,17 @@ public class Lecture {
 		return room;
 	}
 
+	// Room allocation
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public void setReal_characteristics(LinkedList<String> list) {
+		this.real_characteristics = list;
 	}
 
 }

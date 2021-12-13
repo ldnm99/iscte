@@ -19,35 +19,54 @@ public class RoomLoader {
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
             final CSVReader csvReader = new CSVReader(reader);
             
-
             //skips headers
-            csvReader.readNext();
+            String[] headers = csvReader.readNext(); 
+            int[] order_headers = getOrder(headers);
 
             String[] tokens;
-
             while ((tokens = csvReader.readNext()) != null) {
-                rooms.add(creationRooms(tokens));
+                rooms.add(creationRooms(tokens, order_headers));
             }
-
             csvReader.close();
-            
-        } catch (Exception   e) {
+        } catch (Exception  e) {
             e.printStackTrace();
         }
         return rooms;
     }
     
-    private static Room creationRooms(String[] tokens){
+    private static Room creationRooms(String[] tokens, int[] order_headers){
+        
         //Checks which characteristics the room has
         LinkedList<Boolean> characteristics = new LinkedList<>();
-		for (int index = 5; index < tokens.length; index++) {
-			if (tokens[index].equals("X") || tokens[index].equals("x")) {
+
+        for (int index = 5; index < order_headers.length; index++) {
+			if (tokens[order_headers[index]].equals("X") || tokens[order_headers[index]].equals("x")) {
 				characteristics.add(true);
 			} else {
 				characteristics.add(false);
 			}
 		}
-        Room r = new Room(tokens[0], tokens[1], Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]), Integer.parseInt(tokens[4]), characteristics);
+        Room r = new Room(tokens[order_headers[0]], tokens[order_headers[1]], Integer.parseInt(tokens[order_headers[2]]), Integer.parseInt(tokens[order_headers[3]]), 
+        Integer.parseInt(tokens[order_headers[4]]), characteristics);
         return r;
     } 
+
+    private static int[] getOrder(String[] headers){
+        String[] order = Room.HEADERS;
+        int[] indexes = new int[order.length];               
+        int count1 = 0;
+        for(String label : headers){
+            int count2 = 0;
+                for(String label2 : order){  
+                    if(label2.equals(label)){
+                        indexes[count1] = count2;
+                        break;
+                    }
+                    count2++;
+                }
+            count1++;
+        }
+        return indexes;
+    }
+
 }

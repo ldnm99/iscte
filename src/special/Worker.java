@@ -3,6 +3,7 @@ package special;
 
 import java.util.List;
 
+import special.Algorithms.MiddleAlg;
 import special.Algorithms.SimpleAlg;
 import special.Loaders.LectureLoader;
 import special.Loaders.RoomLoader;
@@ -16,14 +17,26 @@ class Worker{
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
         List<Lecture> lectures = LectureLoader.readLecturePath(filename2);
-        // File reading if fully operational   
+        //File reading if fully operational   
         //System.out.println(rooms);
         //System.out.println(lectures);
     
-
+        /*
+        // Basic Alghoritm that acts as a FIFO
         SimpleAlg sa = new SimpleAlg();
         sa.compute(lectures, rooms);
+        for(Lecture l : lectures){
+            System.out.println(l.getRoom().getName());
+        }*/
         
+        // Middle Algorithm that acts based on capacity and required characteristic
+        MiddleAlg ma = new MiddleAlg();
+        ma.compute(lectures, rooms);
+        for(Lecture l : lectures){
+            if(l.getRoom() != null)
+                System.out.println(l.getRoom().getName());
+        }
+
         // Should have the rooms allocated to each lecture instance
         
         
