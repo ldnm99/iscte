@@ -1,5 +1,7 @@
 package special.Loaders;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,11 +16,39 @@ import special.Models.Times;
 
 public class LectureLoader {
 
-    public static final LinkedList<Lecture> readLectureFile(final String filepath){
+    public static final LinkedList<Lecture> readLecturePath(final String filepath){
+
         LinkedList<Lecture> lectures = new LinkedList<>();
+
         try {
            
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
+            final CSVReader csvReader = new CSVReader(reader);
+            
+            //skips headers
+            csvReader.readNext();
+
+            String[] tokens;
+            
+            while ((tokens = csvReader.readNext()) != null) {
+                //System.out.println(tokens[4]);
+                lectures.add(creationlectures(tokens));
+            }
+
+            csvReader.close();
+        } catch (Exception  e) {
+            e.printStackTrace();
+        }
+        return lectures;
+    }
+
+    public static final LinkedList<Lecture> readLectureFile(final File file){
+
+        LinkedList<Lecture> lectures = new LinkedList<>();
+
+        try {
+           
+            final Reader reader = new FileReader(file);
             final CSVReader csvReader = new CSVReader(reader);
             
             //skips headers

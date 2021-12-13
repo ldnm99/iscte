@@ -20,6 +20,12 @@ public class Lecture {
 	private final String real_characteristics;
     private Room room;
 
+	//Headers of the csv file because of json scrambling
+	public static final String[] HEADERS = {"Curso","Unidade de execução","Turno","Turma","Inscritos no turno (no 1º semestre é baseado em estimativas)",
+	"Turnos com capacidade superior à capacidade das características das salas","Turno com inscrições superiores à capacidade das salas","Dia da Semana","Início","Fim","Dia",
+	"Características da sala pedida para a aula","Sala da aula,Lotação","Características reais da sala"
+	};
+
 	public Lecture(LinkedList<String> course, String name, String shift, String class_name, int n_students, boolean Free_Spots, boolean Capacity_Overflow,
 	String week_day, Times start, Times end, Date date2, String required_room_characteristics, int capacity, String real_characteristics) {
 		this.course = course;

@@ -1,15 +1,26 @@
 package special.Models;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Room {
 
+
 	public static final int NUMBER_OF_CHARACTERISTICS = 30;
     public static final String[] CHARACTERISTICS_LIST = new String[]{"Anfiteatro aulas", "Apoio técnico eventos", "Arq 1", "Arq 2", "Arq 3", "Arq 4", "Arq 5", "Arq 6", "Arq 9", 
-	"BYOD (Bring Your Own Device)", "Focus Group", "Horário sala visível portal público", "Laboratório de Arquitectura de Computadores I", 
-	"Laboratório de Arquitectura de Computadores II", "Laboratório de Bases de Engenharia", "Laboratório de Electrónica", "Laboratório de Informática", 
-	"Laboratório de Jornalismo", "Laboratório de Redes de Computadores I", "Laboratório de Redes de Computadores II", "Laboratório de Telecomunicações", "Sala Aulas Mestrado",
-	 "Sala Aulas Mestrado Plus", "Sala NEE", "Sala Provas", "Sala Reunião", "Sala de Arquitectura", "Sala de Aulas normal", "videoconferencia", "Átrio"};
+		"BYOD (Bring Your Own Device)", "Focus Group", "Horário sala visível portal público", "Laboratório de Arquitectura de Computadores I", 
+		"Laboratório de Arquitectura de Computadores II", "Laboratório de Bases de Engenharia", "Laboratório de Electrónica", "Laboratório de Informática", 
+		"Laboratório de Jornalismo", "Laboratório de Redes de Computadores I", "Laboratório de Redes de Computadores II", "Laboratório de Telecomunicações", "Sala Aulas Mestrado",
+	 	"Sala Aulas Mestrado Plus", "Sala NEE", "Sala Provas", "Sala Reunião", "Sala de Arquitectura", "Sala de Aulas normal", "videoconferencia", "Átrio"
+	};
+	
+	//Headers of the csv file because of json scrambling
+	public static final String[] HEADERS = {"Edifício","Nome sala","Capacidade Normal","Capacidade Exame","Nº características","Anfiteatro aulas","Apoio técnico eventos","Arq 1",
+		"Arq 2","Arq 3","Arq 4","Arq 5","Arq 6","Arq 9","BYOD (Bring Your Own Device)","Focus Group","Horário sala visível portal público","Laboratório de Arquitectura de Computadores I",
+		"Laboratório de Arquitectura de Computadores II","Laboratório de Bases de Engenharia","Laboratório de Electrónica","Laboratório de Informática","Laboratório de Jornalismo",
+		"Laboratório de Redes de Computadores I","Laboratório de Redes de Computadores II","Laboratório de Telecomunicações","Sala Aulas Mestrado", "Sala Aulas Mestrado Plus",
+		"Sala NEE","Sala Provas","Sala Reunião","Sala de Arquitectura","Sala de Aulas normal","videoconferencia","Átrio"
+	};
 
 	private final String building;
 	private final String name;
@@ -76,4 +87,13 @@ public class Room {
         return false;
     }
 
+	public final List<String> getCharacteristicsString(){
+        LinkedList<String> characteristisStringList = new LinkedList<>();
+        for (int i = 0; i< characteristics.size(); i++){
+            if(characteristics.get(i)){
+                characteristisStringList.add(CHARACTERISTICS_LIST[i]);
+            }
+        }
+        return characteristisStringList;
+    }
 }

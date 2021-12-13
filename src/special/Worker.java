@@ -15,7 +15,7 @@ class Worker{
 
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
-        List<Lecture> lectures = LectureLoader.readLectureFile(filename2);
+        List<Lecture> lectures = LectureLoader.readLecturePath(filename2);
         // File reading if fully operational   
         //System.out.println(rooms);
         //System.out.println(lectures);
