@@ -8,6 +8,8 @@ import special.Handlers.LectureHandler;
 import special.Models.Lecture;
 import special.Models.Room;
 
+// Algorithm that takes in account the capacity/characteristics/availability of the rooms
+
 public class IdealAlg {
     public void compute(List<Lecture> lectures, List<Room> rooms){
         for(Lecture l : lectures){

@@ -18,13 +18,15 @@ public class LectureLoader {
         LinkedList<Lecture> lectures = new LinkedList<>();
 
         try {
+            //Creates the reader
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
             final CSVReader csvReader = new CSVReader(reader);
             
-            //saves the headers names for the correct allocation of values to variables
+            //Saves the headers names for the correct allocation of values to variables
             String[] headers = csvReader.readNext(); 
             int[] order_headers = getOrder(headers);
 
+            //Will contain a row of the csv
             String[] tokens;
             
             while ((tokens = csvReader.readNext()) != null) {
@@ -39,7 +41,7 @@ public class LectureLoader {
 
     private static Lecture creationlectures(String[] tokens, int[] order_headers){
 
-        // all variables in String form
+        // all variables in String form in their correct order
         final String courseS = tokens[order_headers[0]];
         final String name = tokens[order_headers[1]];
         final String shift = tokens[order_headers[2]];
@@ -67,6 +69,7 @@ public class LectureLoader {
            Capacity_Overflow = false;
         }
         
+        // Date and time creation of schedules and missing values 
         if(!dateS.isEmpty() && !startS.isEmpty() && !endS.isEmpty()){
             String[] date  = dateS.split("/");
             String[] start = startS.split(":");
@@ -88,7 +91,7 @@ public class LectureLoader {
         }
     } 
 
-
+    // Due to json files coming with the collums of the csv in different order
     private static int[] getOrder(String[] headers){
         String[] order = Lecture.HEADERS;
         int[] indexes = new int[order.length];               
@@ -106,5 +109,4 @@ public class LectureLoader {
         }
         return indexes;
     }
-
 }

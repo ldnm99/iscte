@@ -15,15 +15,17 @@ public class RoomLoader {
         
         final LinkedList<Room> rooms = new LinkedList<>();
         try {
-
+            //Creates the reader
             final Reader reader = Files.newBufferedReader(Paths.get(filepath));
             final CSVReader csvReader = new CSVReader(reader);
             
-            //skips headers
+            //Saves the headers names for the correct allocation of values to variables
             String[] headers = csvReader.readNext(); 
             int[] order_headers = getOrder(headers);
-
+            
+            //Will contain a row of the csv
             String[] tokens;
+
             while ((tokens = csvReader.readNext()) != null) {
                 rooms.add(creationRooms(tokens, order_headers));
             }
@@ -38,7 +40,6 @@ public class RoomLoader {
         
         //Checks which characteristics the room has
         LinkedList<Boolean> characteristics = new LinkedList<>();
-
         for (int index = 5; index < order_headers.length; index++) {
 			if (tokens[order_headers[index]].equals("X") || tokens[order_headers[index]].equals("x")) {
 				characteristics.add(true);
@@ -50,7 +51,8 @@ public class RoomLoader {
         Integer.parseInt(tokens[order_headers[4]]), characteristics);
         return r;
     } 
-
+    
+    // Due to json files coming with the collums of the csv in different order
     private static int[] getOrder(String[] headers){
         String[] order = Room.HEADERS;
         int[] indexes = new int[order.length];               

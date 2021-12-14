@@ -92,12 +92,12 @@ public class Lecture {
 	public LinkedList<String> getReal_characteristics() {
 		return real_characteristics;
 	}
-
+	
+	// Room allocation
 	public Room getRoom() {
 		return room;
 	}
 
-	// Room allocation
 	public void setRoom(Room room) {
 		this.room = room;
 	}

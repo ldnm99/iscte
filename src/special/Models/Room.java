@@ -6,8 +6,6 @@ import org.joda.time.Interval;
 
 public class Room {
 
-
-	public static final int NUMBER_OF_CHARACTERISTICS = 30;
     public static final String[] CHARACTERISTICS_LIST = new String[]{"Anfiteatro aulas", "Apoio técnico eventos", "Arq 1", "Arq 2", "Arq 3", "Arq 4", "Arq 5", "Arq 6", "Arq 9", 
 		"BYOD (Bring Your Own Device)", "Focus Group", "Horário sala visível portal público", "Laboratório de Arquitectura de Computadores I", 
 		"Laboratório de Arquitectura de Computadores II", "Laboratório de Bases de Engenharia", "Laboratório de Electrónica", "Laboratório de Informática", 
@@ -23,13 +21,13 @@ public class Room {
 		"Sala NEE","Sala Provas","Sala Reunião","Sala de Arquitectura","Sala de Aulas normal","videoconferencia","Átrio"
 	};
 
+	public  final int NUMBER_OF_CHARACTERISTICS = 30;
 	private final String building;
 	private final String name;
 	private final int normal_capacity;
 	private final int exam_capacity;
 	private final int n_characteristics;
 	private final LinkedList<Boolean> characteristics;
-
 	private LinkedList<Interval> lectures_times_booked;
 
 	public Room(String building, String name, int normal_capacity, int exam_capacity, int n_characteristics, LinkedList<Boolean> characteristics) { //List<String> characteristics) {
@@ -67,7 +65,7 @@ public class Room {
 		return characteristics;
 	}
 
-	//Check if input of variables is the correct one
+	//Check if room has the correct one
 	public final boolean has_Characteristic(final String characteristics) throws IllegalArgumentException{
 		boolean result = false;
 		if (this.has_Valid_Characteristic(characteristics))
@@ -84,6 +82,7 @@ public class Room {
         return false;
     }
 
+	// Transforms the booleans of characteristics into strings
 	public final LinkedList<String> getCharacteristicsString(){
         LinkedList<String> characteristisStringList = new LinkedList<>();
         for (int i = 0; i< characteristics.size(); i++){

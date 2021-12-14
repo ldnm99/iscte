@@ -5,7 +5,7 @@ import java.util.*;
 import special.Models.Lecture;
 import special.Models.Room;
 
-// Fifo allocation of rooms
+// Simple Algorithm that allocates rooms to lectures according to their order only
 public class SimpleAlg {
     
     public void compute(List<Lecture> lectures, List<Room> rooms){
