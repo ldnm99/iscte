@@ -8,7 +8,8 @@ import special.Models.Room;
 
 public class LectureHandler {
 
-    public static final List<Room> getWithCharacteristics(List<Room> rooms, String characteristics){
+	//Returns a list of rooms that can hold said lecture with x characteristic there
+    public static List<Room> getWithCharacteristics(List<Room> rooms, String characteristics){
         final LinkedList<Room> output = new LinkedList<>();
 		for (Room r :rooms){
 			if (r.has_Characteristic(characteristics)){
@@ -18,7 +19,18 @@ public class LectureHandler {
 		return output;
 	}
 
-	private static boolean verifyFeatures(Room r, Lecture l){
+	//Returns a list of rooms that can hold said lecture with x students there
+	public static LinkedList<Room> getWithHighCapacity(List<Room> rooms, int lecture_capacity){
+		final LinkedList<Room> output = new LinkedList<>();
+		for (Room r :rooms){
+			if (r.getNormal_capacity() >= lecture_capacity){
+				output.add(r);
+			}
+		}
+		return output;
+	} 
+
+	public static boolean verifyFeatures(Room r, Lecture l){
 		//Verifies if its possible for all students to come to class
 		boolean capacities = r.getNormal_capacity() < l.getN_students();
 		//Verifies if the room has the characteristic that the lecture requires

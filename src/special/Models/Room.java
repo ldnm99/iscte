@@ -2,6 +2,8 @@ package special.Models;
 
 import java.util.LinkedList;
 
+import org.joda.time.Interval;
+
 public class Room {
 
 
@@ -28,6 +30,8 @@ public class Room {
 	private final int n_characteristics;
 	private final LinkedList<Boolean> characteristics;
 
+	private LinkedList<Interval> lectures_times_booked;
+
 	public Room(String building, String name, int normal_capacity, int exam_capacity, int n_characteristics, LinkedList<Boolean> characteristics) { //List<String> characteristics) {
 		this.building = building;
 		this.name = name;
@@ -35,9 +39,8 @@ public class Room {
 		this.exam_capacity = exam_capacity;
 		this.n_characteristics = n_characteristics;
 		this.characteristics = characteristics;
+		this.lectures_times_booked = new LinkedList<Interval>();
 	}
-
-	
 
 	public String getBuilding() {
 		return building;
@@ -66,22 +69,17 @@ public class Room {
 
 	//Check if input of variables is the correct one
 	public final boolean has_Characteristic(final String characteristics) throws IllegalArgumentException{
-        
 		boolean result = false;
-
-		if (this.has_Valid_Characteristic(characteristics)){
+		if (this.has_Valid_Characteristic(characteristics))
 			result = true;
-		}
-        
         return result;
     }
 
 	// Validates if the characteristic is valid
 	public final boolean has_Valid_Characteristic(final String characteristic) throws IllegalArgumentException {
         for (int i = 0; i < Room.CHARACTERISTICS_LIST.length; i++) {
-            if (Room.CHARACTERISTICS_LIST[i].equals(characteristic)) {
+            if (Room.CHARACTERISTICS_LIST[i].equals(characteristic))
                 return this.characteristics.get(i);
-            }
         }
         return false;
     }
@@ -89,10 +87,24 @@ public class Room {
 	public final LinkedList<String> getCharacteristicsString(){
         LinkedList<String> characteristisStringList = new LinkedList<>();
         for (int i = 0; i< characteristics.size(); i++){
-            if(characteristics.get(i)){
+            if(characteristics.get(i))
                 characteristisStringList.add(CHARACTERISTICS_LIST[i]);
-            }
         }
         return characteristisStringList;
     }
+
+	// Methods for the ideal Alg
+	public LinkedList<Interval> getLectures_times_booked() {
+		return lectures_times_booked;
+	}
+
+	public void addLecture(Interval lecture_time) {
+		lectures_times_booked.add(lecture_time);
+	}
+
+	public void clearLecture(){
+		lectures_times_booked.clear();
+	}
+
+
 }
