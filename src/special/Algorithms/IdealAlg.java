@@ -35,14 +35,11 @@ public class IdealAlg {
                         break roomloop;
                 }
 
-
                 // checks if the interval of the lecture overlaps with those already booked in the classrom
                 for(Interval i : r.getLectures_times_booked()){
                     if( i.overlaps(interval) )
                         continue roomloop;
                 }
-
-
 
                 // if the loop isnt broken its because the room has time for the lecture
                 l.setRoom(r);
