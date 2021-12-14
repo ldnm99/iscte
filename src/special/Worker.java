@@ -12,6 +12,7 @@ import special.Metrics.ClassCapacityOver;
 import special.Metrics.ClassCapacityUnder;
 import special.Metrics.RoomAllocationChars;
 import special.Models.Lecture;
+import special.Models.Response;
 import special.Models.Room;
 
 class Worker{
@@ -22,45 +23,7 @@ class Worker{
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
         List<Lecture> lectures = LectureLoader.readLecturePath(filename2);
 
-        // Basic Alghoritm that acts as a FIFO
-        SimpleAlg sa = new SimpleAlg();
-        List<Lecture> Simple_lectures = new ArrayList<Lecture>();
-        Simple_lectures.addAll(lectures);
-        sa.compute(Simple_lectures, rooms);
-        for(Room r : rooms){
-            r.clearLecture();
-        }
-
-        // Middle Algorithm that acts based on capacity and required characteristic
-        MiddleAlg ma = new MiddleAlg();
-        List<Lecture> Middle_lectures = new ArrayList<Lecture>();
-        Middle_lectures.addAll(lectures);
-        ma.compute(Middle_lectures, rooms);
-        for(Room r : rooms){
-            r.clearLecture();
-        }
-
-        // Ideal Alghoritm that allocates room according to their capacity/characteristic/availabity
-        IdealAlg ia = new IdealAlg();
-        List<Lecture> Ideal_lectures = new ArrayList<Lecture>();
-        Ideal_lectures.addAll(lectures);
-        ia.compute(Ideal_lectures, rooms);
-
-        /*
-        //check if there are no conflitcs in the schedules
-        for(Room r : rooms){
-            System.out.println("Room: " + r.getName());
-            for(Interval i : r.getLectures_times_booked()){
-                System.out.println("Lecture: " + i.getStart() +" Ends at: "+ i.getEnd());
-            }
-        }
-        
-        
-        for(Room r : rooms){
-            r.clearLecture();
-        }*/
-
-        //Evaluation of metrics
+        // Metrics Initialization
         ClassCapacityOver metric1 = new ClassCapacityOver();
         ClassCapacityUnder metric2 = new ClassCapacityUnder();
         RoomAllocationChars metric3 = new RoomAllocationChars();
@@ -69,11 +32,53 @@ class Worker{
         MetricList.add(metric1);
         MetricList.add(metric2);
         MetricList.add(metric3);
+
+        // Response Initialization
+        List<Response> output = new ArrayList<Response>();
+
+        // Basic Alghoritm that acts as a FIFO
+        SimpleAlg sa = new SimpleAlg();
+        List<Lecture> Simple_lectures = new ArrayList<Lecture>();
+        Simple_lectures.addAll(lectures);
+        sa.compute(Simple_lectures, rooms);
         
-        Evaluation ev = new Evaluation();
-        ev.Decider(Simple_lectures, MetricList);
+        //Evaluation of metrics
+        Evaluation simple_ev = new Evaluation();
+        simple_ev.Decider(Simple_lectures, MetricList);
+
+        for(Room r : rooms){
+            r.clearLecture();
+        }
+
         
-        // Should have the rooms allocated to each lecture instance        
+
+        // Middle Algorithm that acts based on capacity and required characteristic
+        MiddleAlg ma = new MiddleAlg();
+        List<Lecture> Middle_lectures = new ArrayList<Lecture>();
+        Middle_lectures.addAll(lectures);
+        ma.compute(Middle_lectures, rooms);
+
+        Evaluation middle_ev = new Evaluation();
+        middle_ev.Decider(Middle_lectures, MetricList);
+
+        for(Room r : rooms){
+            r.clearLecture();
+        }
+
+
+
+        // Ideal Alghoritm that allocates room according to their capacity/characteristic/availabity
+        IdealAlg ia = new IdealAlg();
+        List<Lecture> Ideal_lectures = new ArrayList<Lecture>();
+        Ideal_lectures.addAll(lectures);
+        ia.compute(Ideal_lectures, rooms);
+
+        Evaluation ideal_ev = new Evaluation();
+        ideal_ev.Decider(Ideal_lectures, MetricList);
+
+        for(Room r : rooms){
+            r.clearLecture();
+        }            
     }
     
 

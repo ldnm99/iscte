@@ -12,8 +12,8 @@ public class Metric {
 
     }
 
-    public int evaluate(List<Lecture> lectList) {
-        return 0;
+    public Double evaluate(List<Lecture> lectList) {
+        return 0.0;
     }
 
 
