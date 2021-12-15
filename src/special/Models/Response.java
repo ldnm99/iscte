@@ -4,18 +4,28 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class Response {
-
+    private String name;
+    private String id;
     private List<Lecture> lectures;
     private Hashtable<String, Double>  metrics;
     private String        best_metric;
     
-    public Response(List<Lecture> lectures, Hashtable<String, Double> resultList, String best_metric) {
+    public Response(String name, String id, List<Lecture> lectures, Hashtable<String, Double> resultList, String best_metric) {
+        this.name = name;
+        this.id= id;
         this.lectures = lectures;
         this.metrics = resultList;
         this.best_metric = best_metric;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getID() {
+        return id;
+    }
+    
     public List<Lecture> getLectures() {
         return lectures;
     }
@@ -26,6 +36,14 @@ public class Response {
 
     public String getBest_metric() {
         return best_metric;
+    }
+
+    public String setName(String name) {
+        return name;
+    }
+
+    public String setID(String id) {
+        return id;
     }
 
     public void setLectures(List<Lecture> lectures) {

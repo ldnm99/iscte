@@ -46,7 +46,7 @@ class Worker{
         Evaluation simple_ev = new Evaluation(Simple_lectures, MetricList);
         // simple_ev.Decider(Simple_lectures, MetricList);
 
-        Response out1 = new Response(Simple_lectures,simple_ev.resultList,simple_ev.bestResult);
+        Response out1 = new Response("Horario1","Horario1",Simple_lectures,simple_ev.resultList,simple_ev.bestResult);
         output.add(out1);
 
         for(Room r : rooms){
@@ -62,7 +62,7 @@ class Worker{
         ma.compute(Middle_lectures, rooms);
 
         Evaluation middle_ev = new Evaluation(Middle_lectures, MetricList);
-        Response out2 = new Response(Middle_lectures,middle_ev.resultList,middle_ev.bestResult);
+        Response out2 = new Response("Horario2","Horario2",Middle_lectures,middle_ev.resultList,middle_ev.bestResult);
         output.add(out2);
 
         for(Room r : rooms){
@@ -78,7 +78,7 @@ class Worker{
         ia.compute(Ideal_lectures, rooms);
 
         Evaluation ideal_ev = new Evaluation(Ideal_lectures, MetricList);
-        Response out3 = new Response(Ideal_lectures,ideal_ev.resultList,ideal_ev.bestResult);
+        Response out3 = new Response("Horario3","Horario3",Ideal_lectures,ideal_ev.resultList,ideal_ev.bestResult);
         output.add(out3);
 
         for(Room r : rooms){
