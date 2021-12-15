@@ -16,8 +16,8 @@ import special.Models.Response;
 import special.Models.Room;
 
 class Worker{
-    private static final String filename1 = "C:\\Users\\loure\\Cliente_Especial\\iscte-1\\src\\Local_Files\\ADS - Caracterizacao das salas.csv";
-    private static final String filename2 = "C:\\Users\\loure\\Cliente_Especial\\iscte-1\\src\\Local_Files\\ADS - Exemplo de horario do 1o Semestre.csv";
+    private static final String filename1 = "src\\Local_Files\\ADS - Caracterizacao das salas.csv";
+    private static final String filename2 = "src\\Local_Files\\ADS - Exemplo de horario do 1o Semestre.csv";
 
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
@@ -43,8 +43,11 @@ class Worker{
         sa.compute(Simple_lectures, rooms);
         
         //Evaluation of metrics
-        Evaluation simple_ev = new Evaluation();
-        simple_ev.Decider(Simple_lectures, MetricList);
+        Evaluation simple_ev = new Evaluation(Simple_lectures, MetricList);
+        // simple_ev.Decider(Simple_lectures, MetricList);
+
+        Response out1 = new Response(Simple_lectures,simple_ev.resultList,simple_ev.bestResult);
+        output.add(out1);
 
         for(Room r : rooms){
             r.clearLecture();
@@ -58,8 +61,9 @@ class Worker{
         Middle_lectures.addAll(lectures);
         ma.compute(Middle_lectures, rooms);
 
-        Evaluation middle_ev = new Evaluation();
-        middle_ev.Decider(Middle_lectures, MetricList);
+        Evaluation middle_ev = new Evaluation(Middle_lectures, MetricList);
+        Response out2 = new Response(Middle_lectures,middle_ev.resultList,middle_ev.bestResult);
+        output.add(out2);
 
         for(Room r : rooms){
             r.clearLecture();
@@ -73,12 +77,16 @@ class Worker{
         Ideal_lectures.addAll(lectures);
         ia.compute(Ideal_lectures, rooms);
 
-        Evaluation ideal_ev = new Evaluation();
-        ideal_ev.Decider(Ideal_lectures, MetricList);
+        Evaluation ideal_ev = new Evaluation(Ideal_lectures, MetricList);
+        Response out3 = new Response(Ideal_lectures,ideal_ev.resultList,ideal_ev.bestResult);
+        output.add(out3);
 
         for(Room r : rooms){
             r.clearLecture();
-        }            
+        } 
+        
+        ResponseToJSON transfer = new ResponseToJSON();
+        transfer.ResToJSON(output);
     }
     
 
