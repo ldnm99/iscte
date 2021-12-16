@@ -16,8 +16,8 @@ import special.Models.Response;
 import special.Models.Room;
 
 class Worker{
-    private static final String filename1 = "C:\\Users\\loure\\Cliente_Especial\\iscte-1\\src\\Local_Files\\ADS - Caracterizacao das salas.csv";
-    private static final String filename2 = "C:\\Users\\loure\\Cliente_Especial\\iscte-1\\src\\Local_Files\\ADS - Exemplo de horario do 1o Semestre.csv";
+    private static final String filename1 = "src\\Local_Files\\ADS - Caracterizacao das salas.csv";
+    private static final String filename2 = "src\\Local_Files\\ADS - Exemplo de horario do 1o Semestre.csv";
 
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
@@ -76,7 +76,10 @@ class Worker{
 
         for(Room r : rooms){
             r.clearLecture();
-        }            
+        } 
+        
+        ResponseToJSON transfer = new ResponseToJSON();
+        transfer.ResToJSON(output);
     }
     
 
