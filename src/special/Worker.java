@@ -22,7 +22,9 @@ class Worker{
     public Worker(){
         List<Room> rooms = RoomLoader.readRoomFile(filename1);
         List<Lecture> lectures = LectureLoader.readLecturePath(filename2);
+ 
 
+        
         // Metrics Initialization
         ClassCapacityOver metric1 = new ClassCapacityOver();
         ClassCapacityUnder metric2 = new ClassCapacityUnder();
@@ -33,25 +35,21 @@ class Worker{
         MetricList.add(metric2);
         MetricList.add(metric3);
 
-        // Response Initialization
-        List<Response> output = new ArrayList<Response>();
-
         // Basic Alghoritm that acts as a FIFO
         SimpleAlg sa = new SimpleAlg();
         List<Lecture> Simple_lectures = new ArrayList<Lecture>();
         Simple_lectures.addAll(lectures);
         sa.compute(Simple_lectures, rooms);
-        
+
         //Evaluation of metrics
         Evaluation simple_ev = new Evaluation();
-        simple_ev.Decider(Simple_lectures, MetricList);
+        List<Double> simple_scores =  simple_ev.Decider(Simple_lectures, MetricList);
 
         for(Room r : rooms){
             r.clearLecture();
         }
 
         
-
         // Middle Algorithm that acts based on capacity and required characteristic
         MiddleAlg ma = new MiddleAlg();
         List<Lecture> Middle_lectures = new ArrayList<Lecture>();
@@ -59,7 +57,7 @@ class Worker{
         ma.compute(Middle_lectures, rooms);
 
         Evaluation middle_ev = new Evaluation();
-        middle_ev.Decider(Middle_lectures, MetricList);
+        List<Double> middle_scores = middle_ev.Decider(Middle_lectures, MetricList);
 
         for(Room r : rooms){
             r.clearLecture();
@@ -74,7 +72,7 @@ class Worker{
         ia.compute(Ideal_lectures, rooms);
 
         Evaluation ideal_ev = new Evaluation();
-        ideal_ev.Decider(Ideal_lectures, MetricList);
+        List<Double> ideal_scores = ideal_ev.Decider(Ideal_lectures, MetricList);
 
         for(Room r : rooms){
             r.clearLecture();

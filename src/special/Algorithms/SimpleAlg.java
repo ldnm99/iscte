@@ -1,24 +1,20 @@
 package special.Algorithms;
 
-import java.util.*;
+import java.util.List;
 
 import special.Models.Lecture;
 import special.Models.Room;
 
-// Simple Algorithm that allocates rooms to lectures according to their order only
-public class SimpleAlg {
+// Algorithm that takes in account the capacity/availability of the rooms
+public class SimpleAlg extends Algorithms{
     
     public void compute(List<Lecture> lectures, List<Room> rooms){
-        int count = 0;
         for(Lecture l : lectures){
-            Room r = rooms.get(count);
-            l.setRoom(r);
-            l.setCapacity(r.getNormal_capacity());
-            l.setReal_characteristics(r.getCharacteristicsString());
-            if(count == rooms.size()-1){
-                count = 0;
-            }else
-                count++;
+             //filters rooms with required capacity
+             List<Room> capacity_filtered_rooms = super.getWithHigherCapacity(rooms, l.getN_students());
+
+             //verifies if a room is available and if it is allocates the lecture to it
+             super.room_available(l, capacity_filtered_rooms);
         }
     }
 }

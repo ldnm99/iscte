@@ -6,7 +6,7 @@ import special.Models.Lecture;
 
 public class Evaluation {
 
-    public void Decider(List<Lecture> LectList, List<Metric> MetricList){
+    public List<Double> Decider(List<Lecture> LectList, List<Metric> MetricList){
         List<Double> resultList = new ArrayList<Double>();
         for(Metric metric : MetricList){
             double score = metric.evaluate(LectList);
@@ -16,7 +16,7 @@ public class Evaluation {
         int highestScorePos = resultList.indexOf(Collections.max(resultList));
         System.out.println("The scores were: " + resultList);
         System.out.println("The best metric was: " + MetricList.get(highestScorePos).name);
-
+        return resultList;
     }
 
     
