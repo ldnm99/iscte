@@ -16,7 +16,10 @@ public class Lecture {
 	private  DateTime start_date;
 	private  DateTime end_date;
 	private  String required_room_characteristics;
-	private Room room;
+	private String room_name;
+	private int room_lotation;
+	private LinkedList<String> room_characteristics;
+
 
 	//Headers of the csv file because of json scrambling
 	public static final String[] HEADERS = {"?Curso","Unidade de execução","Turno","Turma","Inscritos no turno (no 1º semestre é baseado em estimativas)",
@@ -167,12 +170,27 @@ public class Lecture {
 		this.required_room_characteristics = required_room_characteristics;
 	}
 	
-	// Room allocation
-	public Room getRoom() {
-		return room;
+	public String getRoom_name() {
+		return room_name;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoom_name(String room_name) {
+		this.room_name = room_name;
+	}
+
+	public int getRoom_lotation() {
+		return room_lotation;
+	}
+
+	public void setRoom_lotation(int room_lotation) {
+		this.room_lotation = room_lotation;
+	}
+
+	public LinkedList<String> getRoom_characteristics() {
+		return room_characteristics;
+	}
+
+	public void setRoom_characteristics(LinkedList<String> room_characteristics) {
+		this.room_characteristics = room_characteristics;
 	}
 }
