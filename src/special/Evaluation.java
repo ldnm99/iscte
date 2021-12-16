@@ -8,8 +8,9 @@ public class Evaluation {
     Hashtable<String, Double> resultList = new Hashtable<String, Double>();
     String bestResult = "";
 
-    public List<Double> Decider(List<Lecture> LectList, List<Metric> MetricList){
-        List<Double> resultList = new ArrayList<Double>();
+    public Evaluation(List<Lecture> LectList, List<Metric> MetricList){
+        String highestMetric = "";
+        Double highestScore = 0.0;
         for(Metric metric : MetricList){
             double score = metric.evaluate(LectList);
             if(score > highestScore){
@@ -19,10 +20,10 @@ public class Evaluation {
             this.resultList.put(metric.name, score);
         }
         
-        int highestScorePos = resultList.indexOf(Collections.max(resultList));
-        System.out.println("The scores were: " + resultList);
-        System.out.println("The best metric was: " + MetricList.get(highestScorePos).name);
-        return resultList;
+        this.bestResult = highestMetric;
+        System.out.println(this.resultList);
+        System.out.println(this.bestResult);
+
     }
 
     

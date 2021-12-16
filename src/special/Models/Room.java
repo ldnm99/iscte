@@ -20,8 +20,7 @@ public class Room {
 		"Laboratório de Redes de Computadores I","Laboratório de Redes de Computadores II","Laboratório de Telecomunicações","Sala Aulas Mestrado", "Sala Aulas Mestrado Plus",
 		"Sala NEE","Sala Provas","Sala Reunião","Sala de Arquitectura","Sala de Aulas normal","videoconferencia","Átrio"
 	};
-
-	public  final int NUMBER_OF_CHARACTERISTICS = 30;
+	
 	private final String building;
 	private final String name;
 	private final int normal_capacity;

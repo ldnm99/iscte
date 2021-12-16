@@ -35,29 +35,37 @@ class Worker{
         MetricList.add(metric2);
         MetricList.add(metric3);
 
-        // Basic Alghoritm that acts as a FIFO
+        // Response Initialization
+        List<Response> output = new ArrayList<Response>();
+
+
+
         SimpleAlg sa = new SimpleAlg();
         List<Lecture> Simple_lectures = new ArrayList<Lecture>();
         Simple_lectures.addAll(lectures);
         sa.compute(Simple_lectures, rooms);
 
-        //Evaluation of metrics
-        Evaluation simple_ev = new Evaluation();
-        List<Double> simple_scores =  simple_ev.Decider(Simple_lectures, MetricList);
+       //Evaluation of metrics
+       Evaluation simple_ev = new Evaluation(Simple_lectures, MetricList);
+       // simple_ev.Decider(Simple_lectures, MetricList);
+
+       Response out1 = new Response("Horario1","Horario1",Simple_lectures,simple_ev.resultList,simple_ev.bestResult);
+       output.add(out1);
 
         for(Room r : rooms){
             r.clearLecture();
         }
 
         
-        // Middle Algorithm that acts based on capacity and required characteristic
+
         MiddleAlg ma = new MiddleAlg();
         List<Lecture> Middle_lectures = new ArrayList<Lecture>();
         Middle_lectures.addAll(lectures);
         ma.compute(Middle_lectures, rooms);
 
-        Evaluation middle_ev = new Evaluation();
-        List<Double> middle_scores = middle_ev.Decider(Middle_lectures, MetricList);
+        Evaluation middle_ev = new Evaluation(Middle_lectures, MetricList);
+        Response out2 = new Response("Horario2","Horario2",Middle_lectures,middle_ev.resultList,middle_ev.bestResult);
+        output.add(out2);
 
         for(Room r : rooms){
             r.clearLecture();
@@ -65,18 +73,20 @@ class Worker{
 
 
 
-        // Ideal Alghoritm that allocates room according to their capacity/characteristic/availabity
+        
         IdealAlg ia = new IdealAlg();
         List<Lecture> Ideal_lectures = new ArrayList<Lecture>();
         Ideal_lectures.addAll(lectures);
         ia.compute(Ideal_lectures, rooms);
 
-        Evaluation ideal_ev = new Evaluation();
-        List<Double> ideal_scores = ideal_ev.Decider(Ideal_lectures, MetricList);
+        Evaluation ideal_ev = new Evaluation(Ideal_lectures, MetricList);
+        Response out3 = new Response("Horario3","Horario3",Ideal_lectures,ideal_ev.resultList,ideal_ev.bestResult);
+        output.add(out3);
 
         for(Room r : rooms){
             r.clearLecture();
         } 
+        
         
         ResponseToJSON transfer = new ResponseToJSON();
         transfer.ResToJSON(output);

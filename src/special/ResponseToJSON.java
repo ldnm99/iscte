@@ -15,11 +15,10 @@ public class ResponseToJSON {
         try{
             // Converting the Java object into a JSON string  
             for(Response response: output){
-            String jsonStr = Obj.writeValueAsString(response);  
-            // Displaying Java object into a JSON string  
-            System.out.println(jsonStr); 
+                String jsonStr = Obj.writeValueAsString(response);  
+                // Displaying Java object into a JSON string  
+                 System.out.println(jsonStr); 
             }
-
         }
         catch (IOException e) {  
             e.printStackTrace();  
